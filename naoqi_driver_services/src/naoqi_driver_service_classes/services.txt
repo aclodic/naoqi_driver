@@ -12,8 +12,10 @@
 /naoqi_driver/localization/load
 /naoqi_driver/localization/save
 /naoqi_driver/localization/stop_all
+/naoqi_driver/motion/angle_interpolation_with_speed
 /naoqi_driver/motion/move_to
 /naoqi_driver/motion/rest
+/naoqi_driver/motion/set_angles
 /naoqi_driver/motion/set_breath_enabled
 /naoqi_driver/motion/wake_up
 /naoqi_driver/navigation/explore

@@ -2,6 +2,7 @@ import rospy
 from service_abstractclass import AbstractService
 from nao_interaction_msgs.srv import SetBreathEnabled, SetBreathEnabledResponse
 from nao_interaction_msgs.srv import GoToPose, GoToPoseResponse
+from nao_interaction_msgs.srv import MotionSetAngles, MotionSetAnglesResponse
 from std_srvs.srv import Empty, EmptyResponse
 import utils as ut
 import tf
@@ -12,8 +13,8 @@ class MotionServices(AbstractService):
         super(MotionServices, self).__init__(
             proxy_name="ALMotion",
             ns=super_ns+"/motion",
-            topics=["move_to", "rest", "set_breath_enabled", "wake_up"],
-            service_types=[GoToPose, Empty, SetBreathEnabled, Empty])
+            topics=["move_to", "rest", "set_breath_enabled", "wake_up", "set_angles", "angle_interpolation_with_speed"],
+            service_types=[GoToPose, Empty, SetBreathEnabled, Empty, MotionSetAngles, MotionSetAngles])
         self.listener = tf.TransformListener()
 
     def transform(self, pose_stamped, target_frame):
@@ -56,3 +57,19 @@ class MotionServices(AbstractService):
     def wake_up_callback(self, req):
         self.proxy.wakeUp()
         return EmptyResponse()
+
+    def set_angles_callback(self, req):
+        if len(req.names) != len(req.angles):
+            rospy.logerr("Size of names different from size of angles")
+        else:
+            self.proxy.setAngles(req.names, req.angles, req.max_speed_fraction)
+        return MotionSetAnglesResponse()
+
+    def angle_interpolation_with_speed_callback(self, req):
+        if len(req.names) != len(req.angles):
+            rospy.logerr("Size of names different from size of angles")
+        else:
+            self.proxy.angleInterpolationWithSpeed(req.names, req.angles, req.max_speed_fraction)
+        return MotionSetAnglesResponse()
+
+
