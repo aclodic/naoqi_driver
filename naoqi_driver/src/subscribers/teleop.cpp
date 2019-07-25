@@ -49,7 +49,15 @@ void TeleopSubscriber::cmd_vel_callback( const geometry_msgs::TwistConstPtr& twi
   const float& vel_th = twist_msg->angular.z;
 
   std::cout << "going to move x: " << vel_x << " y: " << vel_y << " th: " << vel_th << std::endl;
-  p_motion_.async<void>("move", vel_x, vel_y, vel_th );
+
+  std::vector<std::pair<std::string, float>> parameters{std::make_pair("MaxVelXY", 0.55),
+                                                std::make_pair("MaxVelTheta", 2.00),
+                                                std::make_pair("MaxAccXY", 0.55),
+                                      std::make_pair("MaxAccTheta", 3.00),
+                                      std::make_pair("MaxJerkXY", 5.0),
+                                      std::make_pair("MaxJerkTheta", 50.00)};
+
+  p_motion_.async<void>("move", vel_x, vel_y, vel_th, parameters);
 }
 
 void TeleopSubscriber::joint_angles_callback( const naoqi_bridge_msgs::JointAnglesWithSpeedConstPtr& js_msg )
