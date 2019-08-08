@@ -10,6 +10,7 @@ from naoqi_driver_service_classes.motion_services import MotionServices
 from naoqi_driver_service_classes.behaviour_manager_services import BehaviourManagerServices
 from naoqi_driver_service_classes.tracker_services import TrackerServices
 from naoqi_driver_service_classes.tablet_services import TabletServices
+from naoqi_driver_service_classes.led_services import LedServices
 
 
 class ServicesNode(object):
@@ -22,6 +23,7 @@ class ServicesNode(object):
         BehaviourManagerServices(super_ns)
         TrackerServices(super_ns)
         TabletServices(super_ns)
+        LedServices(super_ns)
         rospy.loginfo("... done")
 
 if __name__ == "__main__":
