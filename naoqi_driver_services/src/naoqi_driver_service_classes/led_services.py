@@ -24,7 +24,6 @@ class LedServices(AbstractService):
         return LedsCreateGroupResponse()
 
     def ear_set_angle_callback(self, req):
-        print req
         self.proxy.earLedsSetAngle(req.degrees, req.duration, req.leave_on_at_end)
         return LedsEarSetAngleResponse()
 
