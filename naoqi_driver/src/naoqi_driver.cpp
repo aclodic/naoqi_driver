@@ -26,6 +26,7 @@
  */
 #include "converters/audio.hpp"
 #include "converters/touch.hpp"
+#include "converters/tablet.hpp"
 #include "converters/people.hpp"
 #include "converters/camera.hpp"
 #include "converters/diagnostics.hpp"
@@ -103,6 +104,7 @@
 #include "event/basic.hpp"
 #include "event/audio.hpp"
 #include "event/touch.hpp"
+#include "event/tablet.hpp"
 #include "event/people.hpp"
 #include "event/sound.hpp"
 #include "event/recharge.hpp"
@@ -621,6 +623,8 @@ void Driver::registerDefaultConverter()
   bool hand_enabled                   = boot_config_.get( "converters.touch_hand.enabled", true);
   bool head_enabled                   = boot_config_.get( "converters.touch_head.enabled", true);
 
+  bool tablet_touch_enabled           = boot_config_.get( "converters.tablet_touch.enabled", true);
+
   bool face_enabled                   = boot_config_.get( "converters.face.enabled", true);
   bool people_enabled                 = boot_config_.get( "converters.people.enabled", true);
 
@@ -839,6 +843,23 @@ void Driver::registerDefaultConverter()
       event_map_.find("sound_localized")->second.isPublishing(true);
     }
   }
+
+  /** TABLET **/
+  if ( tablet_touch_enabled )
+  {
+    std::vector<std::string> tablet_events;
+    tablet_events.push_back("ALRALManagerModule/onTouchDown");
+    boost::shared_ptr<TouchDownEventRegister> event_register =
+      boost::make_shared<TouchDownEventRegister>( "tablet_touch", tablet_events, 0, sessionPtr_ );
+    insertEventConverter("tablet_touch", event_register);
+    if (keep_looping) {
+      event_map_.find("tablet_touch")->second.startProcess();
+    }
+    if (publish_enabled_) {
+      event_map_.find("tablet_touch")->second.isPublishing(true);
+    }
+  }
+
 
   /** TOUCH **/
   if ( bumper_enabled )

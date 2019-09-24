@@ -6,6 +6,7 @@ set(
   CONVERTERS_SRC
   src/converters/audio.cpp
   src/converters/touch.cpp
+  src/converters/tablet.cpp
   src/converters/people.cpp
   src/converters/camera.cpp
   src/converters/diagnostics.cpp
@@ -89,6 +90,7 @@ set(
   src/event/basic.hpp
   src/event/audio.cpp
   src/event/touch.cpp
+  src/event/tablet.cpp
   src/event/people.cpp
   src/event/sound.cpp
   src/event/recharge.cpp
