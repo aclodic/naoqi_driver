@@ -25,6 +25,8 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#include <iostream>
+
 #ifdef CATKIN_BUILD
 #include <ros/package.h>
 #endif
