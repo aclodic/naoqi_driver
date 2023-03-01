@@ -20,7 +20,7 @@ class LedServices(AbstractService):
             service_types=[LedsCreateGroup, LedsEarSetAngle, LedsFade, LedsFadeRGB, String, LedsList, LedsList, String, String, String, Float, Float, LedsRotateEyes, LedsSetIntensity])
 
     def create_group_callback(self, req):
-        self.proxy.createGroup(req.name, led_names)
+        self.proxy.createGroup(req.name, req.led_names)
         return LedsCreateGroupResponse()
 
     def ear_set_angle_callback(self, req):
