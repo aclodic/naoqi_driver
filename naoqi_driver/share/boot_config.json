@@ -76,7 +76,7 @@
     },
     "audio":
     {
-      "enabled"       : false
+      "enabled"       : true
     },
     "sound":
     {
